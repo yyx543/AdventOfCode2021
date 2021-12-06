@@ -9,32 +9,21 @@ count = [0,0,0,0,0,0,0]
 
 for idx in range(len(int_lst)):
     count[int_lst[idx]] += 1
+
 day = 0
 birth = 0
 for i in range(256):
     tdy = count[day] + new_count[birth]
     new_count[birth] = count[day]
     count[day] = tdy
+
     if day == 6:
         day = 0
     else:
         day += 1
-    if birth == 0:
-        birth = 1
-    else:
-        birth = 0
-    
+    birth = (birth+1)%2
+
     if i == 79:
-        fish_count = 0
-        for i in count:
-            fish_count += i
-        for i in new_count:
-            fish_count += i
-        print(f"Part 1: {fish_count}")
+        print(f"Part 1: {sum(count) + sum(new_count)}")
         
-fish_count = 0
-for i in count:
-    fish_count += i
-for i in new_count:
-    fish_count += i
-print(f"Part 2: {fish_count}")
+print(f"Part 2: {sum(count) + sum(new_count)}")
