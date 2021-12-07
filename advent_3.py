@@ -1018,9 +1018,7 @@ for i in range(len(lst[0])):
 
 msb_str = "".join(msb_lst)
 lsb_str = "".join(lsb_lst)
-print(f"Part 1: {msb_str}, {lsb_str}")
-        
-
+print(f"Part 1: {int(msb_str,2) * int(lsb_str,2)}")
 
 
 # PART 2
@@ -1064,9 +1062,5 @@ for i in range(len(lst[0])):
             
     o_lst = new_o
     co_lst = new_co
-
-print(f"Part 2: {o_lst[0]}, {co_lst[0]}")
-
-
-# Part 1: 3969000
-# Part 2: 4267809
+    
+print(f"Part 2: {int(o_lst[0],2)*int(co_lst[0],2)}")
