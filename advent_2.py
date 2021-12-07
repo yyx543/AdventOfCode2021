@@ -1003,17 +1003,12 @@ lst = inp.split("\n")
 
 
 # PART 1
-hori = 0
-depth = 0
+pos = {"forward":0, "up":0, "down":0}
 for instr in lst:
     instr = instr.split(" ")
-    if instr[0] == "forward":
-        hori += int(instr[1])
-    elif instr[0] == "up":
-        depth -= int(instr[1])
-    else:
-        depth += int(instr[1])
-print(f"Part 1: {hori*depth}")
+    pos[instr[0]] += int(instr[1])
+answer = pos["forward"] * (pos["down"]-pos["up"])
+print(f"Part 1: {answer}")
 
 
 # PART 2

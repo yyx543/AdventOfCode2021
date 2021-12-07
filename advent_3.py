@@ -1030,6 +1030,7 @@ co_lst = copy.deepcopy(o_lst)
 for i in range(len(lst[0])):
     o_count = 0
     co_count = 0
+
     for bin in o_lst:
         o_count += int(bin[i])
     if o_count >= len(o_lst)/2:
@@ -1043,20 +1044,24 @@ for i in range(len(lst[0])):
         lsb = 0
     else:
         lsb = 1
+
     new_o = []
     new_co = []
+
     for bin in o_lst:
         if len(o_lst) == 1:
             new_o = o_lst
             break
         if int(bin[i]) == msb:
             new_o.append(bin)
+
     for bin in co_lst:
         if len(co_lst) == 1:
             new_co = co_lst
             break
         if int(bin[i]) == lsb:
             new_co.append(bin)
+            
     o_lst = new_o
     co_lst = new_co
 

@@ -517,24 +517,19 @@ def add_one(grid, x1, x2, y1 ,y2, part):
         elif x2<x1:
             for i in range(x2, x1+1):
                 grid[i][y1] += 1
-        
+
     elif part:
         x = x1
-        if x1 > x2:
-            if y1 < y2:
-                for i, j in zip(range(x1,x2-1,-1), range(y1,y2+1)):
-                    grid[i][j] += 1
-            else:
-                for i, j in zip(range(x1,x2-1,-1), range(y1,y2-1,-1)):
-                    grid[i][j] += 1
-            
-        elif x1 < x2:
-            if y1 < y2:
-                for i, j in zip(range(x1,x2+1), range(y1,y2+1)):
-                    grid[i][j] += 1
-            else:
-                for i, j in zip(range(x1,x2+1), range(y1,y2-1,-1)):
-                    grid[i][j] += 1
+        if x1 < x2:
+            xdir = 1
+        else:
+            xdir = -1
+        if y1 < y2:
+            ydir = 1
+        else:
+            ydir = -1
+        for i, j in zip(range(x1, x2+xdir, xdir), range(y1, y2+ydir, ydir)):
+            grid[i][j] += 1
     
     return grid
 

@@ -627,6 +627,7 @@ def check_num(board, num):
     # print(board)
     return board
 
+
 def check_win(board, num):
     rows = board.split("\n")
     new_board = []
@@ -643,15 +644,12 @@ def check_win(board, num):
         if vert_win or hori_win:
             answer = calc_board(board, num)
             return True, answer
-        
     return False, None
     
-
-
     
+
 boards = bingo_boards.split("\n\n")
 num_inp = num_str.split(",")
-
 
 win_count = []
 for i in range(100):
