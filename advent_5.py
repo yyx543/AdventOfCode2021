@@ -533,13 +533,16 @@ def add_one(grid, x1, x2, y1 ,y2, part):
     
     return grid
 
-# PART 1
-grid = []
+grid1 = []
+grid2 = []
 for i in range(999):
-    temp = []
+    temp1 = []
+    temp2 = []
     for j in range(999):
-        temp.append(0)
-    grid.append(temp)
+        temp1.append(0)
+        temp2.append(0)
+    grid1.append(temp1)
+    grid2.append(temp2)
 
 lst = inp.split("\n")
 for coor in lst:
@@ -550,42 +553,18 @@ for coor in lst:
     x2 = int(temp2[0])
     y1 = int(temp1[1])
     y2 = int(temp2[1])
-    
-    grid = add_one(grid, x1, x2, y1, y2, False)
-    
-count = 0
-for i in range(len(grid)):
-    for j in range(len(grid[i])):
-        if grid[i][j] > 1:
-            count += 1
-            
-print(f"Part 1: {count}")
 
-
-# PART 2
-grid = []
-for i in range(999):
-    temp = []
-    for j in range(999):
-        temp.append(0)
-    grid.append(temp)
-
-lst = inp.split("\n")
-for coor in lst:
-    temp = coor.split(" -> ")
-    temp1 = temp[0].split(",")
-    temp2 = temp[1].split(",")
-    x1 = int(temp1[0])
-    x2 = int(temp2[0])
-    y1 = int(temp1[1])
-    y2 = int(temp2[1])
+    grid1 = add_one(grid1, x1, x2, y1, y2, False)
+    grid2 = add_one(grid2, x1, x2, y1, y2, True)
     
-    grid = add_one(grid, x1, x2, y1, y2, True)
-    
-count = 0
-for i in range(len(grid)):
-    for j in range(len(grid[i])):
-        if grid[i][j] > 1:
-            count += 1
-            
-print(f"Part 2: {count}")
+count1 = 0
+count2 = 0
+for i in range(len(grid1)):
+    for j in range(len(grid1[i])):
+        if grid1[i][j] > 1:
+            count1 += 1
+        if grid2[i][j] > 1:
+            count2 += 1
+
+print(f"Part 1: {count1}")
+print(f"Part 2: {count2}")
