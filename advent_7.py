@@ -9,16 +9,14 @@ median = lst[int(len(lst)/2)]
 optimal_fuel_1 = 0
 for pos in lst:
     optimal_fuel_1 += abs(median-pos)
-print(f"Part 1: {optimal_fuel_1}, {median}")
+print(f"Part 1: {optimal_fuel_1}")
 
 
 # PART 2
-optimal_fuel_2 = 999999999999999
+optimal_fuel_2 = 99999999
 for i in set(lst):
     current_fuel_2 = 0
     for pos in lst:
         current_fuel_2 += sum(range(abs(i-pos)+1))
-    if current_fuel_2 < optimal_fuel_2:
-        optimal_fuel_2 = current_fuel_2
-        optimal_row_2 = i
-print(f"Part 2: {optimal_fuel_2}, {optimal_row_2}")
+    optimal_fuel_2 = min(optimal_fuel_2, current_fuel_2)
+print(f"Part 2: {optimal_fuel_2}")
