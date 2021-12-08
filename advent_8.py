@@ -231,7 +231,7 @@ print(f"Part 1: {count}")
 #           g: 7
 
 
-# PART 2
+# PART 2 (decode each sevenseg)
 def difference(digit1, digit2):
     value = "".join(list(set(digit1).symmetric_difference(set(digit2))))
     return value
@@ -265,35 +265,31 @@ def decode(str_lst):
             actual_f = letter
     return [actual_a, actual_b, actual_c, actual_d, actual_e, actual_f, actual_g]
     
-def decoding(line_lst, digits):
+def decoding(sample, digits):
     count = 0
     multiple = 1000
     for digit in digits:
-        if line_lst[2] in digit:                    # have c (0,1,2,3,4,7,8,9)
-            if line_lst[1] in digit:                # have b (0,4,8,9)
-                if line_lst[4] in digit:            # have e (0,8)
-                    if line_lst[3] in digit:        # have d (8)
-                        count += 8 * multiple
-                else:                               # no e (4,9)
-                    if line_lst[0] in digit:        # have a (9)
-                        count += 9 * multiple
-                    else:                           # no a (4)
-                        count += 4 * multiple
-            else:                                   # no b (1,2,3,7)
-                if line_lst[6] in digit:            # have g (2,3)
-                    if line_lst[4] in digit:        # have e (2)
-                        count += 2 * multiple
-                    else:                           # no e (3)
-                        count += 3 * multiple
-                else:                               # no g (1,7)
-                    if line_lst[0] in digit:        # have a (7)
-                        count += 7 * multiple
-                    else:                           # no a (1)
-                        count += 1 * multiple
-        else:                                       # no c (5,6)
-            if line_lst[4] in digit:                # have e (6)
+        if len(digit) == 2:                 # is 1
+            count += 1 * multiple
+        elif len(digit) == 3:               # is 7
+            count += 7 * multiple
+        elif len(digit) == 4:               # is 4
+            count += 4 * multiple
+        elif len(digit) == 7:               # is 8
+            count += 8 * multiple
+        elif sample[4] in digit:            # have e (0,2,6)
+            if sample[2] in digit:          # have c (0,2)
+                if sample[3] in digit:
+                    count += 2 * multiple
+            else:                           # no c (6)
                 count += 6 * multiple
-            else:                                   # no e (5)
+        else:                               # no e (3,5,9)
+            if sample[2] in digit:          # have c (3,9)
+                if sample[1] in digit:      # have b (9)
+                    count += 9 * multiple
+                else:                       # no b (3)
+                    count += 3 * multiple
+            else:                           # no c (5)
                 count += 5 * multiple
         multiple /= 10
     return count
@@ -305,3 +301,8 @@ for line in lst:
     total_count += decoding(decoded, inp_str[1].split(" "))
 
 print(f"Part 2: {int(total_count)}")
+
+
+
+
+# PART 2 (decode numbers based on subset)
