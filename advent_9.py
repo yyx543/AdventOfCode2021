@@ -101,6 +101,12 @@ inp_str ='''24489109899998756789898976598656789797895432568999943456987754589345
 
 inp_lst = inp_str.split("\n")
 
+new_lst = []
+nines = "9"*(len(inp_lst[0])+2)
+new_lst.append(nines)
+for line in inp_lst:
+    new_lst.append("9"+line+"9")
+new_lst.append(nines)
 
 # PART 1
 def check_min(centre, left, right, up, down):
@@ -111,29 +117,14 @@ def check_min(centre, left, right, up, down):
 
 min_points = []
 risk = 0
-for idx in range(len(inp_lst)):
+for idx in range(1, len(new_lst)-1):
     # print(idx)
-    for idx2 in range(len(inp_lst[idx])):
-        curr = int(inp_lst[idx][idx2])
-        if idx != 0:
-            up = int(inp_lst[idx-1][idx2])
-            if idx != len(inp_lst)-1:
-                down = int(inp_lst[idx+1][idx2])
-            else:
-                down = 10
-        else:
-            up = 10
-            down = int(inp_lst[idx+1][idx2])
-            
-        if idx2 != 0:
-            left = int(inp_lst[idx][idx2-1])
-            if idx2 != len(inp_lst[idx])-1:
-                right = int(inp_lst[idx][idx2+1])
-            else:
-                right = 10
-        else:
-            left = 10
-            right = int(inp_lst[idx][idx2+1])
+    for idx2 in range(1, len(new_lst[idx])-1):
+        curr = int(new_lst[idx][idx2])
+        up = int(new_lst[idx-1][idx2])
+        down = int(new_lst[idx+1][idx2])
+        left = int(new_lst[idx][idx2-1])
+        right = int(new_lst[idx][idx2+1])
             
         if check_min(curr, left, right, up, down):
             min_points.append([idx, idx2])
@@ -143,28 +134,24 @@ print(f"Part 1: {risk}")
 # PART 2
 def calc_basin(lst, x, y, basin_points):
     adj = []
-    if x != 0:
-        if int(lst[x][y]) < int(lst[x-1][y]) < 9 and [x-1, y] not in basin_points:
-            basin_points.append([x-1, y])
-            adj.append([x-1, y])
-        if x != len(lst)-1:
-            if int(lst[x][y]) < int(lst[x+1][y]) < 9 and [x+1, y] not in basin_points:
-                basin_points.append([x+1, y])
-                adj.append([x+1, y])
-    if y != 0:
-        if int(lst[x][y]) < int(lst[x][y-1]) < 9 and [x, y-1] not in basin_points:
-            basin_points.append([x, y-1])
-            adj.append([x, y-1])
-        if y != len(lst[x])-1:
-            if int(lst[x][y]) < int(lst[x][y+1]) < 9 and [x, y+1] not in basin_points:
-                basin_points.append([x, y+1])
-                adj.append([x, y+1])
+    if int(lst[x][y]) < int(lst[x-1][y]) < 9 and [x-1, y] not in basin_points:
+        basin_points.append([x-1, y])
+        adj.append([x-1, y])
+    if int(lst[x][y]) < int(lst[x+1][y]) < 9 and [x+1, y] not in basin_points:
+        basin_points.append([x+1, y])
+        adj.append([x+1, y])
+    if int(lst[x][y]) < int(lst[x][y-1]) < 9 and [x, y-1] not in basin_points:
+        basin_points.append([x, y-1])
+        adj.append([x, y-1])
+    if int(lst[x][y]) < int(lst[x][y+1]) < 9 and [x, y+1] not in basin_points:
+        basin_points.append([x, y+1])
+        adj.append([x, y+1])
     for coor in adj:
         basin_points = calc_basin(lst, coor[0], coor[1], basin_points)
     return basin_points
 
 basin_size = []
 for point in min_points:
-    basin_size.append(len(calc_basin(inp_lst, point[0], point[1], [[point[0], point[1]]])))
+    basin_size.append(len(calc_basin(new_lst, point[0], point[1], [[point[0], point[1]]])))
 basin_size.sort()
 print(f"Part 2: {basin_size[-1] * basin_size[-2] * basin_size[-3]}")
