@@ -232,10 +232,6 @@ print(f"Part 1: {count}")
 
 
 # PART 2 (decode each sevenseg)
-def difference(digit1, digit2):
-    value = "".join(list(set(digit1).symmetric_difference(set(digit2))))
-    return value
-
 def decode(str_lst):
     decode_dict = {'a': 0, 'b': 0, 'c': 0, 'd': 0, 'e': 0, 'f': 0, 'g': 0}
     for num in str_lst:
