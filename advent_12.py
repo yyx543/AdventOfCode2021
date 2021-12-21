@@ -37,10 +37,8 @@ neighbour_dict = DefaultDict(list)
 
 for line in inp_lst:
     line = line.split("-")
-    if line[0] not in neighbour_dict[line[1]] and line[0] != "start":
-        neighbour_dict[line[1]].append(line[0])
-    if line[1] not in neighbour_dict[line[0]] and line[1] != "start":
-        neighbour_dict[line[0]].append(line[1])
+    neighbour_dict[line[1]].append(line[0])
+    neighbour_dict[line[0]].append(line[1])
 
 def get_neighbours(node):
     return neighbour_dict[node]
@@ -53,38 +51,33 @@ def check_occurences(path, node):
     return count
 
 def visiting1(node, visited):
-    neighbours = get_neighbours(node)
     visited.append(node)
-
     if node == "end":
         paths.append(copy.deepcopy(visited))
     else:
+        neighbours = get_neighbours(node)
         for neighbour in neighbours:
-            if neighbour.isupper():
+            if neighbour.isupper() or neighbour not in visited:
                 visiting1(neighbour, copy.deepcopy(visited))
-            elif neighbour not in visited:
-                visiting1(neighbour, copy.deepcopy(visited))
-
-
-start_node = "start"
-paths = []
-visiting1("start", [])
-print(f"Part 1: {len(paths)}")
-
 
 def visiting2(node, visited, duplicate):
-    neighbours = get_neighbours(node)
     visited.append(node)
-
     if node == "end":
         paths.append("".join(visited))
     else:
+        neighbours = get_neighbours(node)
         for neighbour in neighbours:
-            if neighbour.isupper() or neighbour not in visited:
+            if neighbour == "start":
+                continue
+            elif neighbour.isupper() or neighbour not in visited:
                 visiting2(neighbour, copy.deepcopy(visited), duplicate)
             elif not duplicate:
                 visiting2(neighbour, copy.deepcopy(visited), True)
 
+start_node = "start"
 paths = []
-visiting2("start", [], False)
+visiting1(start_node, [])
+print(f"Part 1: {len(paths)}")
+paths = []
+visiting2(start_node, [], False)
 print(f"Part 2: {len(paths)}")
