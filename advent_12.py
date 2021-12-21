@@ -43,13 +43,6 @@ for line in inp_lst:
 def get_neighbours(node):
     return neighbour_dict[node]
 
-def check_occurences(path, node):
-    count = 0
-    for i in path:
-        if i == node:
-            count += 1
-    return count
-
 def visiting1(node, visited):
     visited.append(node)
     if node == "end":
