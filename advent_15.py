@@ -115,7 +115,10 @@ def dijkstra(map, visited, coordinates, risk):
             newx = x+dx
             newy = y+dy
             if 0<=newx<len(visited) and 0<=newy<len(visited[0]):
-                next_risk = (int(map[newx%len(map)][newy%len(map[0])]) + newx//len(map) + newy//len(map[0]) - 1) % 9 + 1 + visited[x][y]
+                next_risk = (int(map[newx%len(map)][newy%len(map[0])])
+                                + newx//len(map)
+                                + newy//len(map[0])
+                                - 1) % 9 + 1 + visited[x][y]
                 if  next_risk < visited[newx][newy]:
                     visited[newx][newy] = next_risk
                     queue.append([newx,newy])
@@ -125,12 +128,12 @@ visited = []
 for i in range(len(inp_lst)):
     line = []
     for j in range(len(inp_lst[0])):
-        line.append(9999999999)
+        line.append(9999)
     visited.append(line)
 visited[0][0] = 0
 
 dijkstra(inp_lst, visited, [0,0], 0)
-print(f"Part 1: {visited[len(visited)-1][len(visited[0])-1]}")
+print(f"Part 1: {visited[-1][-1]}")
 
 
 # PART 2
@@ -138,9 +141,9 @@ visited = []
 for i in range(len(inp_lst)*5):
     line = []
     for j in range(len(inp_lst[0])*5):
-        line.append(9999999999)
+        line.append(9999)
     visited.append(line)
 visited[0][0] = 0
 
 dijkstra(inp_lst, visited, [0,0], 0)
-print(f"Part 2: {visited[len(visited)-1][len(visited[0])-1]}")
+print(f"Part 2: {visited[-1][-1]}")
